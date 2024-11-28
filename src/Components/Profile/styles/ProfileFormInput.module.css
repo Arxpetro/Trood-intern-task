@@ -1,0 +1,12 @@
+
+.textInput{
+    color: #00000099;
+    font-size: 1.08rem;
+    width: 100%;
+    height: 3.75rem;
+    border: 0.088rem solid #00000061;
+    border-radius: 0.4rem;
+    padding: 0 0.8rem;
+    background-color: transparent;
+    margin-bottom: 1.5rem;
+}

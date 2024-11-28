@@ -1,0 +1,49 @@
+
+.heading{
+    font-size: 2.5rem;
+    font-weight: 600;
+    line-height: 1em;
+    text-align: center;
+    margin-bottom: 1.2em;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.logInBtn{
+    font-size: 0.875rem;
+    height: 2.5rem;
+    width: 48%; 
+    background-color: #3888E7;
+    color: white;
+    border: solid 1px #3888E7 ;
+    border-radius: 0.4rem;
+    margin-top: 1.6rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.SignUpBtn{
+    font-size: 0.875rem;
+    height: 2.5rem;
+    width: 48%; 
+    background-color: #fff;
+    color: #3888E7;
+    border: solid 1px #3888E7 ;
+    border-radius: 0.4rem;
+    margin-top: 1.6rem;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#forgotPassword{
+    text-align: end;
+    margin-top: 1.25rem;
+    color: #3888E7;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+}

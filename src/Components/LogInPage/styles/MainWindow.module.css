@@ -1,0 +1,28 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter';
+}
+
+p {
+    margin-bottom: 6px;
+}
+
+.MainBlock{
+    width: 38.75em;
+    box-shadow: 0 0.25em 1em #00000026 ;
+    border-radius: 1.5em;
+    margin:auto;
+    font-family: Inter;
+    padding: 7.5em 6.125em;
+    box-sizing: border-box;
+}
+
+#MainLogo{
+    display:block;
+    width: 27.75em;
+    margin: 6.875em auto;
+
+}
