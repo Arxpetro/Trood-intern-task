@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import FormInput from "./ProfileFormInput";
 
@@ -8,28 +8,41 @@ import NoPFP from "../img/profile_picture_EMPTY.png";
 
 import styles from "./styles/Form.module.css";
 function Form() {
-    const localData = localStorage.getItem("formData");
-	const [FormData, setFormData] = useState(localData ?? {
-		firstName: "",
-		lastName: "",
-		jobTitle: "",
-		phone: "",
-		email: "",
-		address: "",
-		pitch: "",
-		isPrivate: true,
-		interests: [],
-		potentialIntersts: [],
-		links: [],
-	});
-      // Обработчик изменений в полях формы
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+	// const localData = localStorage.getItem("formData");
+    
+	const [FormData, setFormData] = useState(
+		{
+			firstName: "",
+			lastName: "",
+			jobTitle: "",
+			phone: "",
+			email: "",
+			address: "",
+			pitch: "",
+			isPrivate: true,
+			interests: [],
+			potentialIntersts: [],
+			links: [],
+		}
+	);
+    // loagin formData from localstorage at the first rendering
+    useEffect(() => {
+        const savedData = localStorage.getItem("formData");
+        if (savedData) {
+          setFormData(JSON.parse(savedData)); // Устанавливаем сохранённые данные
+        }
+      }, []);
+
+
+
+	// Обработчик изменений в полях формы
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}));
+	};
 
 	// disable form handle
 	const [isDisabled, setIsDisabled] = useState(true);
@@ -51,7 +64,7 @@ function Form() {
 	const handleAddInterest = () => {
 		if (newInterest.trim() && !interests.includes(newInterest.trim())) {
 			setInterests([...interests, newInterest.trim()]);
-            setFormData([...FormData, interests]); // set new interest in formData
+			setFormData([...FormData, interests]); // set new interest in formData
 			setNewInterest(""); // Очищаем поле ввода
 		}
 	};
@@ -59,7 +72,7 @@ function Form() {
 	// Удаление интереса
 	const handleRemoveInterest = (interest) => {
 		setInterests(interests.filter((item) => item !== interest));
-        setFormData([...FormData, interests]); // set new interest in formData
+		setFormData([...FormData, interests]); // set new interest in formData
 	};
 	return (
 		<form className={styles.profileForm} action="" method="get">
@@ -72,13 +85,36 @@ function Form() {
 			<div className={styles.pfpContainer}>
 				<img src={NoPFP} alt="PFP" id={styles.noPfp} disabled={isDisabled} />
 			</div>
-			<FormInput name="Name" req isDisabled={isDisabled} onChange={handleChange}/>
-			<FormInput name="Lastname" req isDisabled={isDisabled} onChange={handleChange}/>
-			<FormInput name="Job Title" isDisabled={isDisabled} onChange={handleChange}/>
-			<FormInput name="Phone" req isDisabled={isDisabled} onChange={handleChange}/>
-			<FormInput name="Email" isDisabled={isDisabled} onChange={handleChange}/>
-			<FormInput name="Address" isDisabled={isDisabled} onChange={handleChange}/>
-			<FormInput name="Pitch" isDisabled={isDisabled} onChange={handleChange}/>
+			<FormInput
+				name="Name"
+				req
+				isDisabled={isDisabled}
+				onChange={handleChange}
+			/>
+			<FormInput
+				name="Lastname"
+				req
+				isDisabled={isDisabled}
+				onChange={handleChange}
+			/>
+			<FormInput
+				name="Job Title"
+				isDisabled={isDisabled}
+				onChange={handleChange}
+			/>
+			<FormInput
+				name="Phone"
+				req
+				isDisabled={isDisabled}
+				onChange={handleChange}
+			/>
+			<FormInput name="Email" isDisabled={isDisabled} onChange={handleChange} />
+			<FormInput
+				name="Address"
+				isDisabled={isDisabled}
+				onChange={handleChange}
+			/>
+			<FormInput name="Pitch" isDisabled={isDisabled} onChange={handleChange} />
 
 			<p className={styles.ProfileFormChapter}>
 				Show your profile in Launchpad?
@@ -113,17 +149,16 @@ function Form() {
 					Public
 				</label>
 			</div>
-{/*///////////////////////////////////////////////////////////////////*/}
-			
-			
+			{/*///////////////////////////////////////////////////////////////////*/}
+
 			<div
 				style={{
-					display: "flex"
+					display: "flex",
 				}}
 			>
 				<p className={styles.ProfileFormChapter}>
-				The scopes of your interest:
-			</p>
+					The scopes of your interest:
+				</p>
 				<div
 					style={{
 						display: "flex",
@@ -153,17 +188,17 @@ function Form() {
 						))}
 					</div>
 					{/* Добавление нового интереса */}
-					<div >
+					<div>
 						<input
 							type="text"
 							value={newInterest}
 							onChange={(e) => setNewInterest(e.target.value)}
 							placeholder="Add"
 							style={{
-                                width: "4rem",
-                                backgroundColor: "transparent",
+								width: "4rem",
+								backgroundColor: "transparent",
 								padding: "0.4rem",
-								
+
 								border: "1px solid",
 								outline: "none",
 							}}
@@ -175,7 +210,7 @@ function Form() {
 								border: "none",
 								color: "#3888E7",
 								fontSize: "2em",
-                                lineHeight: "1rem",
+								lineHeight: "1rem",
 								cursor: "pointer",
 							}}
 						>
