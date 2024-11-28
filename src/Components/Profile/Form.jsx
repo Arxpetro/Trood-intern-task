@@ -25,13 +25,13 @@ function Form() {
 			links: [],
 		}
 	);
-    // loagin formData from localstorage at the first rendering
-    useEffect(() => {
-        const savedData = localStorage.getItem("formData");
-        if (savedData) {
-          setFormData(JSON.parse(savedData)); // Устанавливаем сохранённые данные
-        }
-      }, []);
+    // loading formData from localstorage at the first rendering
+    // useEffect(() => {
+    //     const savedData = localStorage.getItem("formData");
+    //     if (savedData) {
+    //       setFormData(JSON.parse(savedData)); // Устанавливаем сохранённые данные
+    //     }
+    // }, []);
 
 
 
@@ -64,7 +64,7 @@ function Form() {
 	const handleAddInterest = () => {
 		if (newInterest.trim() && !interests.includes(newInterest.trim())) {
 			setInterests([...interests, newInterest.trim()]);
-			setFormData([...FormData, interests]); // set new interest in formData
+			//setFormData([...FormData, interests]); // set new interest in formData
 			setNewInterest(""); // Очищаем поле ввода
 		}
 	};
@@ -72,7 +72,7 @@ function Form() {
 	// Удаление интереса
 	const handleRemoveInterest = (interest) => {
 		setInterests(interests.filter((item) => item !== interest));
-		setFormData([...FormData, interests]); // set new interest in formData
+		//setFormData([...FormData, interests]); // set new interest in formData
 	};
 	return (
 		<form className={styles.profileForm} action="" method="get">
@@ -170,18 +170,19 @@ function Form() {
 					{/* Интересы */}
 					<div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
 						{interests.map((interest, index) => (
-							<div
+							<div // array on intersts with remove by click
+                                className={styles.interst}
 								key={index}
 								onClick={() => handleRemoveInterest(interest)}
-								style={{
-									padding: "5px 10px",
-									border: "1px solid #333",
-									borderRadius: "20px",
-									backgroundColor: "transparent",
-									cursor: "pointer",
-									display: "inline-flex",
-									alignItems: "center",
-								}}
+								// style={{
+								// 	padding: "5px 10px",
+								// 	border: "1px solid #333",
+								// 	borderRadius: "20px",
+								// 	backgroundColor: "transparent",
+								// 	cursor: "pointer",
+								// 	display: "inline-flex",
+								// 	alignItems: "center",
+								// }}
 							>
 								{interest}
 							</div>
