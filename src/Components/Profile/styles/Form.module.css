@@ -74,12 +74,11 @@
     border: 0.6rem solid rgb(63, 63, 63);
 }
 
-.interst{
+.interest{
     padding: 0.4rem 0.7rem;
     border: 1px solid #49535C;
     border-radius: 1.25rem;
     background-color: transparent;
-    cursor: pointer;
     display: inline-flex;
     align-items: center;
 

@@ -23,11 +23,17 @@ function Form() {
 		potentialIntersts: [],
 		links: [],
 	});
+	// Состояние для хранения списка интересов
+	const [interests, setInterests] = useState(FormData.interests);
+	const [newInterest, setNewInterest] = useState(""); // Состояние для нового интереса
+
 	// loading formData from localstorage at the first rendering
 	useEffect(() => {
 		const savedData = localStorage.getItem("FormData");
 		if (savedData) {
-			setFormData(JSON.parse(savedData)); // Устанавливаем сохранённые данные
+			const data = JSON.parse(savedData);
+			setFormData(data); // Устанавливаем сохранённые данные
+			setInterests(data.interests);
 		}
 	}, []);
 
@@ -39,14 +45,13 @@ function Form() {
 			[name]: value,
 		}));
 		console.log(FormData);
-		
 	};
 
 	// Обработчик сохранения данных
 	const handleSubmit = (event) => {
 		event.preventDefault(); // Предотвращаем перезагрузку страницы
 		// Сохраняем данные в Local Storage
-		
+
 		if (!isDisabled) {
 			localStorage.setItem("FormData", JSON.stringify(FormData));
 		}
@@ -55,34 +60,45 @@ function Form() {
 
 	// disable form handle
 	const [isDisabled, setIsDisabled] = useState(true);
-	const toggleFormState = () => {
-		setIsDisabled(!isDisabled);
-	};
-
-	// Состояние для хранения списка интересов
-	const [interests, setInterests] = useState([]);
-	const [newInterest, setNewInterest] = useState(""); // Состояние для нового интереса
 
 	// Добавление нового интереса
-	const handleAddInterest = () => {
-		if (newInterest.trim() && !interests.includes(newInterest.trim())) {
-			setInterests([...interests, newInterest.trim()]);
-			setFormData((prevData) => ({
-				...prevData,
-				interests,
-			})); // set interest in formData
-			setNewInterest(""); // Очищаем поле ввода
+	const handleAddInterest = (e) => {
+		e.preventDefault();
+		const trimmedInterest = newInterest.trim();
+	  
+		// Проверяем, что интерес не пустой и его ещё нет в списке
+		if (trimmedInterest && !interests.includes(trimmedInterest)) {
+		  // Создаём обновлённый массив с новым интересом
+		  const updatedInterests = [...interests, trimmedInterest];
+		  setInterests(updatedInterests);
+	  
+		  // Обновляем formData с новым массивом интересов
+		  setFormData((prevData) => ({
+			...prevData,
+			interests: updatedInterests,
+		  }));
+	  
+		  // Очищаем поле ввода
+		  setNewInterest("");
 		}
 	};
 
 	// Удаление интереса
 	const handleRemoveInterest = (interest) => {
-		setInterests(interests.filter((item) => item !== interest));
+		// Создаём новый массив с удалённым элементом
+		const updatedInterests = interests.filter((item) => item !== interest);
+		setInterests(updatedInterests);
+	  
+		// Обновляем formData с новым массивом интересов
 		setFormData((prevData) => ({
-			...prevData,
-			interests,
-		})); // set interest in formData
+		  ...prevData,
+		  interests: updatedInterests, // Используем новый массив
+		}));
+	  
+		console.log("Updated interests:", updatedInterests);
 	};
+
+
 	return (
 		<form className={styles.profileForm} action="" method="get">
 			<img
@@ -195,9 +211,14 @@ function Form() {
 					<div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
 						{interests.map((interest, index) => (
 							<div // array on intersts with remove by click
-								className={styles.interst}
+								disabled={isDisabled}
+								className={styles.interest}
 								key={index}
-								onClick={() => handleRemoveInterest(interest)}
+								onClick={() => {
+									if (!isDisabled) {
+										handleRemoveInterest(interest);
+									}
+								}}
 							>
 								{interest}
 							</div>
@@ -206,6 +227,7 @@ function Form() {
 					{/* Добавление нового интереса */}
 					<div>
 						<input
+							disabled={isDisabled}
 							type="text"
 							value={newInterest}
 							onChange={(e) => setNewInterest(e.target.value)}
@@ -214,15 +236,17 @@ function Form() {
 								width: "4rem",
 								backgroundColor: "transparent",
 								padding: "0.4rem",
-
 								border: "1px solid",
 								outline: "none",
 							}}
-							onSubmit={(event) =>{
+							onSubmit={(event) => {
 								event.preventDefault();
+								//setNewInterest(event.target.value)
 							}}
 						/>
 						<button
+							disabled={isDisabled}
+							
 							onClick={handleAddInterest}
 							style={{
 								background: "none",
@@ -230,10 +254,9 @@ function Form() {
 								color: "#3888E7",
 								fontSize: "2em",
 								lineHeight: "1rem",
-								cursor: "pointer",
 							}}
 						>
-							<p>+</p>
+							+
 						</button>
 					</div>
 				</div>
