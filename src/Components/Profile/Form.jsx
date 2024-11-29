@@ -218,6 +218,9 @@ function Form() {
 								border: "1px solid",
 								outline: "none",
 							}}
+							onSubmit={(event) =>{
+								event.preventDefault();
+							}}
 						/>
 						<button
 							onClick={handleAddInterest}
