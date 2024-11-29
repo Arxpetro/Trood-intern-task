@@ -83,7 +83,7 @@ function Form() {
 		}
 	};
 
-	// Удаление интереса
+	// Удаление интересa
 	const handleRemoveInterest = (interest) => {
 		// Создаём новый массив с удалённым элементом
 		const updatedInterests = interests.filter((item) => item !== interest);
