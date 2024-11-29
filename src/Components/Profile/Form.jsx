@@ -9,31 +9,27 @@ import NoPFP from "../img/profile_picture_EMPTY.png";
 import styles from "./styles/Form.module.css";
 function Form() {
 	// const localData = localStorage.getItem("formData");
-    
-	const [FormData, setFormData] = useState(
-		{
-			firstName: "",
-			lastName: "",
-			jobTitle: "",
-			phone: "",
-			email: "",
-			address: "",
-			pitch: "",
-			isPrivate: true,
-			interests: [],
-			potentialIntersts: [],
-			links: [],
+
+	const [FormData, setFormData] = useState({
+		name: "Petro",
+		lastname: "",
+		jobTitle: "",
+		phone: "",
+		email: "",
+		address: "",
+		pitch: "",
+		visibility: true,
+		interests: [],
+		potentialIntersts: [],
+		links: [],
+	});
+	// loading formData from localstorage at the first rendering
+	useEffect(() => {
+		const savedData = localStorage.getItem("FormData");
+		if (savedData) {
+			setFormData(JSON.parse(savedData)); // Устанавливаем сохранённые данные
 		}
-	);
-    // loading formData from localstorage at the first rendering
-    // useEffect(() => {
-    //     const savedData = localStorage.getItem("formData");
-    //     if (savedData) {
-    //       setFormData(JSON.parse(savedData)); // Устанавливаем сохранённые данные
-    //     }
-    // }, []);
-
-
+	}, []);
 
 	// Обработчик изменений в полях формы
 	const handleChange = (event) => {
@@ -42,6 +38,19 @@ function Form() {
 			...prevData,
 			[name]: value,
 		}));
+		console.log(FormData);
+		
+	};
+
+	// Обработчик сохранения данных
+	const handleSubmit = (event) => {
+		event.preventDefault(); // Предотвращаем перезагрузку страницы
+		// Сохраняем данные в Local Storage
+		
+		if (!isDisabled) {
+			localStorage.setItem("FormData", JSON.stringify(FormData));
+		}
+		setIsDisabled(!isDisabled); // switch form state
 	};
 
 	// disable form handle
@@ -49,12 +58,6 @@ function Form() {
 	const toggleFormState = () => {
 		setIsDisabled(!isDisabled);
 	};
-
-	// Public/Private profile handle
-	// const [visibility, setVisibility] = useState("Private");
-	// const handleChange = (event) => {
-	// 	setVisibility(event.target.value);
-	// };
 
 	// Состояние для хранения списка интересов
 	const [interests, setInterests] = useState([]);
@@ -64,7 +67,10 @@ function Form() {
 	const handleAddInterest = () => {
 		if (newInterest.trim() && !interests.includes(newInterest.trim())) {
 			setInterests([...interests, newInterest.trim()]);
-			//setFormData([...FormData, interests]); // set new interest in formData
+			setFormData((prevData) => ({
+				...prevData,
+				interests,
+			})); // set interest in formData
 			setNewInterest(""); // Очищаем поле ввода
 		}
 	};
@@ -72,7 +78,10 @@ function Form() {
 	// Удаление интереса
 	const handleRemoveInterest = (interest) => {
 		setInterests(interests.filter((item) => item !== interest));
-		//setFormData([...FormData, interests]); // set new interest in formData
+		setFormData((prevData) => ({
+			...prevData,
+			interests,
+		})); // set interest in formData
 	};
 	return (
 		<form className={styles.profileForm} action="" method="get">
@@ -80,41 +89,56 @@ function Form() {
 				id={styles.penImg}
 				src={isDisabled ? Pen : Save}
 				alt="pen_img"
-				onClick={toggleFormState}
+				onClick={handleSubmit}
 			/>
 			<div className={styles.pfpContainer}>
 				<img src={NoPFP} alt="PFP" id={styles.noPfp} disabled={isDisabled} />
 			</div>
 			<FormInput
-				name="Name"
+				name="name"
 				req
 				isDisabled={isDisabled}
 				onChange={handleChange}
+				value={FormData.name}
 			/>
 			<FormInput
-				name="Lastname"
+				name="lastname"
 				req
 				isDisabled={isDisabled}
 				onChange={handleChange}
+				value={FormData.lastname}
 			/>
 			<FormInput
-				name="Job Title"
+				name="jobTitle"
 				isDisabled={isDisabled}
 				onChange={handleChange}
+				value={FormData.jobTitle}
 			/>
 			<FormInput
-				name="Phone"
+				name="phone"
 				req
 				isDisabled={isDisabled}
 				onChange={handleChange}
+				value={FormData.phone}
 			/>
-			<FormInput name="Email" isDisabled={isDisabled} onChange={handleChange} />
 			<FormInput
-				name="Address"
+				name="email"
 				isDisabled={isDisabled}
 				onChange={handleChange}
+				value={FormData.email}
 			/>
-			<FormInput name="Pitch" isDisabled={isDisabled} onChange={handleChange} />
+			<FormInput
+				name="address"
+				isDisabled={isDisabled}
+				onChange={handleChange}
+				value={FormData.address}
+			/>
+			<FormInput
+				name="pitch"
+				isDisabled={isDisabled}
+				onChange={handleChange}
+				value={FormData.pitch}
+			/>
 
 			<p className={styles.ProfileFormChapter}>
 				Show your profile in Launchpad?
@@ -129,7 +153,7 @@ function Form() {
 						type="radio"
 						name="visibility"
 						value="Private"
-						//checked={visibility === "Private"}
+						checked={FormData.visibility === "Private"}
 						onChange={handleChange}
 					/>
 					Private
@@ -143,7 +167,7 @@ function Form() {
 						type="radio"
 						name="visibility"
 						value="Public"
-						//checked={visibility === "Public"}
+						checked={FormData.visibility === "Public"}
 						onChange={handleChange}
 					/>
 					Public
@@ -171,18 +195,9 @@ function Form() {
 					<div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
 						{interests.map((interest, index) => (
 							<div // array on intersts with remove by click
-                                className={styles.interst}
+								className={styles.interst}
 								key={index}
 								onClick={() => handleRemoveInterest(interest)}
-								// style={{
-								// 	padding: "5px 10px",
-								// 	border: "1px solid #333",
-								// 	borderRadius: "20px",
-								// 	backgroundColor: "transparent",
-								// 	cursor: "pointer",
-								// 	display: "inline-flex",
-								// 	alignItems: "center",
-								// }}
 							>
 								{interest}
 							</div>

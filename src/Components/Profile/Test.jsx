@@ -94,13 +94,7 @@ function Test() {
 		event.preventDefault(); // Предотвращаем перезагрузку страницы
 		// Сохраняем данные в Local Storage
 		localStorage.setItem("formData", JSON.stringify(formData));
-		//alert("Данные успешно сохранены в Local Storage!");
-		// Можно очистить форму, если нужно:
-		// setFormData({
-		// 	firstName: "",
-		// 	lastName: "",
-		// 	email: "",
-		// });
+		
 	};
 
 	// loading formData from localstorage at the first rendering
