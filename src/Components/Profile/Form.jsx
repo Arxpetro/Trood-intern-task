@@ -34,19 +34,92 @@ function Form() {
 		address: false,
 	});
 	// Перевіряємо наявність значення false
-	function hasInvalid() {
-		return Object.values(validAll).some((value) => value === false);
-	}
-	const validCheck = (e) => {
-		const form = e.target;
-		setValidAll((prev) => ({
-			...prev,
-			[form.name]: form.checkValidity(),
-		}));
-		console.log(validAll);
+	// function hasInvalid() {
+	// 	return Object.values(validAll).some((value) => value === false);
+	// }
+	const validateFormData = (formData) => {
+		const { name, lastname, jobTitle, phone, email, address } = formData;
+
+		// Проверка имени (Name)
+		if (!name.trim()) {
+			alert("Name is required.");
+			return false;
+		}
+		if (name.length < 2 || name.length > 50) {
+			alert("Name must be between 2 and 50 characters.");
+			return false;
+		}
+		if (!/^[A-Za-z\s]+$/.test(name)) {
+			alert("Name can only contain letters and spaces.");
+			return false;
+		}
+
+		// Проверка фамилии (Last Name)
+		if (!lastname.trim()) {
+			alert("Last Name is required.");
+			return false;
+		}
+		if (lastname.length < 2 || lastname.length > 50) {
+			alert("Last Name must be between 2 and 50 characters.");
+			return false;
+		}
+		if (!/^[A-Za-z\s]+$/.test(lastname)) {
+			alert("Last Name can only contain letters and spaces.");
+			return false;
+		}
+
+		// Проверка должности (Job Title)
+		if (jobTitle.length > 100) {
+			alert("Job Title cannot exceed 100 characters.");
+			return false;
+		}
+		if (!/^[A-Za-z0-9\s-]*$/.test(jobTitle)) {
+			alert(
+				"Job Title can only contain letters, numbers, spaces, and hyphens."
+			);
+			return false;
+		}
+
+		// Проверка телефона (Phone)
+		if (!phone.trim()) {
+			alert("Phone number is required.");
+			return false;
+		}
+		if (!/^\+\d{10,15}$/.test(phone)) {
+			alert(
+				"Phone number must start with '+' and contain 10-15 digits (e.g., +79999999999)."
+			);
+			return false;
+		}
+
+		// Проверка email (Email)
+		if (!email.trim()) {
+			alert("Email is required.");
+			return false;
+		}
+		if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+			alert("Please enter a valid email address.");
+			return false;
+		}
+
+		// Проверка адреса (Address)
+		if (address.length > 200) {
+			alert("Address cannot exceed 200 characters.");
+			return false;
+		}
+		if (!/^[A-Za-z0-9\s,.-]*$/.test(address)) {
+			alert(
+				"Address can only contain letters, numbers, commas, periods, hyphens, and spaces."
+			);
+			return false;
+		}
+
+		// Если все поля валидны
+		return true;
 	};
 
-	//let isVALID = true;
+
+	
 	// Состояние для хранения списка интересов
 	const [interests, setInterests] = useState(FormData.interests);
 	const [newInterest, setNewInterest] = useState(""); // Состояние для нового интереса
@@ -103,12 +176,14 @@ function Form() {
 	const handleSubmit = (event) => {
 		event.preventDefault(); // Предотвращаем перезагрузку страницы
 		// Сохраняем данные в Local Storage
-		if (!isDisabled ) {
-			if (!hasInvalid()) {
-				localStorage.setItem("FormData", JSON.stringify(FormData));
-			}
-			setNewInterest(""); // if user typed th-g in the interest input
-			setNewPotentialInterest("");
+
+		if (!isDisabled && validateFormData(FormData)) {
+			localStorage.setItem("FormData", JSON.stringify(FormData));
+			setIsDisabled(!isDisabled);
+		}
+		setNewInterest(""); // if user typed th-g in the interest input
+		setNewPotentialInterest("");
+		if (isDisabled) {
 			setIsDisabled(!isDisabled); // switch form state
 		}
 	};
@@ -259,7 +334,6 @@ function Form() {
 
 			<FormInput
 				name="name"
-				onload={validCheck}
 				req
 				isDisabled={isDisabled}
 				onChange={handleChange}
@@ -270,7 +344,6 @@ function Form() {
 			/>
 			<FormInput
 				name="lastname"
-				onload={validCheck}
 				req
 				isDisabled={isDisabled}
 				onChange={handleChange}
@@ -281,7 +354,6 @@ function Form() {
 			/>
 			<FormInput
 				name="jobTitle"
-				onload={validCheck}
 				isDisabled={isDisabled}
 				onChange={handleChange}
 				value={FormData.jobTitle}
@@ -291,7 +363,7 @@ function Form() {
 			/>
 			<FormInput
 				name="phone"
-				onload={validCheck}
+				req
 				isDisabled={isDisabled}
 				onChange={handleChange}
 				value={FormData.phone}
@@ -301,7 +373,6 @@ function Form() {
 			/>
 			<FormInput
 				name="email"
-				onload={validCheck}
 				type="email"
 				isDisabled={isDisabled}
 				onChange={handleChange}
@@ -310,7 +381,6 @@ function Form() {
 			/>
 			<FormInput
 				name="address"
-				onload={validCheck}
 				isDisabled={isDisabled}
 				onChange={handleChange}
 				value={FormData.address}
