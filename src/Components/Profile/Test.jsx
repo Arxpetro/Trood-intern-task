@@ -94,17 +94,45 @@ function Test() {
 		event.preventDefault(); // Предотвращаем перезагрузку страницы
 		// Сохраняем данные в Local Storage
 		localStorage.setItem("formData", JSON.stringify(formData));
-		
 	};
 
 	// loading formData from localstorage at the first rendering
 	useEffect(() => {
-	    const savedData = localStorage.getItem("formData");
-	    if (savedData) {
-	      setFormData(JSON.parse(savedData)); // Устанавливаем сохранённые данные
-	    }
+		const savedData = localStorage.getItem("formData");
+		if (savedData) {
+			setFormData(JSON.parse(savedData)); // Устанавливаем сохранённые данные
+		}
 	}, []);
 
+	const [imageSrc, setImageSrc] = useState(null);
+
+	// Загружаем картинку из localStorage при загрузке страницы
+	useEffect(() => {
+		const storedImage = localStorage.getItem("uploadedImage");
+		if (storedImage) {
+			setImageSrc(storedImage);
+		}
+	}, []);
+
+	const handleDivClick = () => {
+		// Создаём скрытый input для выбора файла
+		const input = document.createElement("input");
+		input.type = "file";
+		input.accept = "image/*";
+		input.onchange = (event) => {
+			const file = event.target.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = () => {
+					const imageData = reader.result;
+					setImageSrc(imageData); // Устанавливаем картинку в состояние
+					localStorage.setItem("uploadedImage", imageData); // Сохраняем в localStorage
+				};
+				reader.readAsDataURL(file); // Читаем файл как Data URL
+			}
+		};
+		input.click(); // Программно вызываем клик на input
+	};
 	return (
 		<div style={{ textAlign: "center", marginTop: "50px" }}>
 			<h3>Форма для сохранения данных в Local Storage</h3>
@@ -183,6 +211,24 @@ function Test() {
 					Сохранить
 				</button>
 			</form>
+			<div
+				onClick={handleDivClick}
+				style={{
+					width: "200px",
+					height: "200px",
+					border: "2px dashed gray",
+					borderRadius: "8px",
+					backgroundImage: `url(${imageSrc})`,
+					backgroundSize: "cover",
+					backgroundPosition: "center",
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+					cursor: "pointer",
+				}}
+			>
+				{!imageSrc && <span>Нажмите, чтобы загрузить картинку</span>}
+			</div>
 		</div>
 	);
 }

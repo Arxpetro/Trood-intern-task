@@ -7,48 +7,48 @@
 
 .container{
     background-color: #F5F4F4;
-    padding-bottom: 10em;
+    padding-bottom: 10rem;
 }
 #header{
     display: flex;
     align-items: center;
-    padding: 1em;
+    padding: 1rem;
 }
 
 #arrowContainer{
-    width: 2.4em;
-    height: 2.4em;
+    width: 2.4rem;
+    height: 2.4rem;
     cursor: "pointer";
 }
 
 #arrowImg{
-    width: 1.3em;
-    height: 1.3em;
-    margin: 0.5em;
+    width: 1.3rem;
+    height: 1.3rem;
+    margin: 0.5rem;
 }
 
 #MainLogo{
-    width: 15em;
-    height: 2.6em;
-    margin-left: 2em;
+    width: 15rem;
+    height: 2.6rem;
+    margin-left: 2rem;
 }
 
 #profileNavHeader{
-    font-size: 2.2em;
-    margin-left: 1em;
+    font-size: 2.2rem;
+    margin-left: 1rem;
     font-weight: 400;
 }
 .body{
     display: flex;
     justify-content: space-between;
-    padding: 2em 3em 0 3.75em;
+    padding: 2rem 3rem 0 3.75rem;
 }
 
 .chapterHeaer{
-    font-size: 2.3em;
+    font-size: 2.3rem;
     font-weight: 600;
-    margin-bottom: 0.8em;
-    margin-top: 1em;
+    margin-bottom: 0.8rem;
+    margin-top: 1rem;
 }
 
 

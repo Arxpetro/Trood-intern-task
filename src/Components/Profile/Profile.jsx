@@ -5,6 +5,7 @@ import styles from "./styles/Profile.module.css";
 
 import Form from "./Form";
 import Test from "./Test";
+import TestLinks from './TestLinks';
 
 // images
 import LeftArrow from "../img/left_arrow.png";
@@ -38,7 +39,8 @@ function Profile() {
 				{/*  PROFILE FORM */}
 				<Form/>
 			</div>
-			<Test />
+			{/* <Test /> */}
+			{/* <TestLinks /> */}
 		</div>
 	);
 }

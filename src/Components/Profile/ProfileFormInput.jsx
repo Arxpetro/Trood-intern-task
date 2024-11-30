@@ -9,7 +9,12 @@ function FormInput({
 	placeholder = "",
 	req = false,
 	isDisabled = true,
-	onChange
+	onChange,
+	maxLength = '50',
+	minLength="0",
+	pattern, // Allows only letters (Latin and Cyrillic) and spaces
+	title,
+	onload,
 }) {
 	return (
 		<div>
@@ -22,6 +27,11 @@ function FormInput({
 				required={req}
 				placeholder={placeholder ? placeholder : name}
 				onChange={onChange}
+				maxLength={maxLength}
+				minLength={minLength}
+				pattern={pattern}
+				title={title}
+				onLoad={onload}
 			/>
 		</div>
 	);
