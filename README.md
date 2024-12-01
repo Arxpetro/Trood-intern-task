@@ -1,27 +1,18 @@
---RU--
-
-Тестовое задание Trood для frontend intern
-
-Задание реализовано в соответствии с макетом и тектсовым описанием при помощи библиотеки React
-
-https://docs.google.com/document/d/1Fq9qQ2eY4MG6uGzlFdWp36DtivuM7g2K833WbsWy6GM/edit?tab=t.0
-
-В проекте есть несколько неиспользуемых страниц из макета, которые я сделал просто что бы потренироватся в react (начал его изучение в день получения задания).
-
-Что бы запустить проект, достаточно создать реакт перложение (для этого вам нужен Node.js и его npm) и земенить в нем соответсвующие папки, после чего из корневай папки проекта прописать npm start.
+--RU--\
+Тестовое задание Trood для frontend intern\
+Задание реализовано в соответствии с макетом и тектсовым описанием при помощи библиотеки React\
+https://docs.google.com/document/d/1Fq9qQ2eY4MG6uGzlFdWp36DtivuM7g2K833WbsWy6GM/edit?tab=t.0\
+В проекте есть несколько неиспользуемых страниц из макета, которые я сделал просто что бы потренироватся в react (начал его изучение в день получения задания).\
+Что бы запустить проект, достаточно создать реакт перложение (для этого вам нужен Node.js и его npm) и земенить в нем соответсвующие папки, после чего из корневай папки проекта прописать npm start.\
 
 
 --ENGLISH--
 
-Test task Trood for frontend intern
-
-The task is implemented in accordance with the layout and text description using the React library
-
-https://docs.google.com/document/d/1Fq9qQ2eY4MG6uGzlFdWp36DtivuM7g2K833WbsWy6GM/edit?tab=t.0
-
-The project has several unused pages from the layout, which I made just to practice in react (I started studying it on the day I received the task).
-
-To run the project, you should create a react application (for this you need Node.js and its npm) and change the corresponding folders in it, then write npm start from the root folder of the project.
+Test task Trood for frontend intern\
+The task is implemented in accordance with the layout and text description using the React library\
+https://docs.google.com/document/d/1Fq9qQ2eY4MG6uGzlFdWp36DtivuM7g2K833WbsWy6GM/edit?tab=t.0\
+The project has several unused pages from the layout, which I made just to practice in react (I started studying it on the day I received the task).\
+To run the project, you should create a react application (for this you need Node.js and its npm) and change the corresponding folders in it, then write npm start from the root folder of the project.\
 
 
 
