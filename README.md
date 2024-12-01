@@ -7,7 +7,6 @@ https://docs.google.com/document/d/1Fq9qQ2eY4MG6uGzlFdWp36DtivuM7g2K833WbsWy6GM/
 
 
 --ENGLISH-- \
-
 Test task Trood for frontend intern \
 The task is implemented in accordance with the layout and text description using the React library \
 https://docs.google.com/document/d/1Fq9qQ2eY4MG6uGzlFdWp36DtivuM7g2K833WbsWy6GM/edit?tab=t.0 \
